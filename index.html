@@ -3,144 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albert Einstein - Explore the Universe</title>
+    <title>Albert Einstein Teaches: The History of Math</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
+        :root {
+            --space-bg: #050b18;
+            --accent-blue: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-color: var(--space-bg);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.1) 0%, transparent 40%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             overflow-x: hidden;
-            padding: 2rem 0;
+            margin: 0;
+            padding: 2rem 1rem;
         }
 
-        .stars {
+        /* Animated Star Background */
+        #star-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background: transparent;
+            inset: 0;
             z-index: 0;
+            pointer-events: none;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Glassmorphism Refinements */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 2rem;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
         }
 
-        .glow-button {
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        .inner-glass {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.25rem;
         }
 
-        .glow-button:hover {
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
-            transform: translateY(-2px);
+        .launch-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .launch-btn:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .launch-btn:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .fade-in {
-            animation: fadeIn 1.5s ease-in forwards;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="starField"></div>
+    <div id="star-container"></div>
 
-    <main class="relative z-10 w-full max-w-lg px-6">
-        <div class="glass-card p-8 md:p-12 text-center fade-in">
-            <div class="mb-8 flex justify-center">
-                <div class="w-24 h-24 rounded-full bg-blue-600/20 flex items-center justify-center border border-blue-400/30">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
+    <main class="relative z-10 w-full max-w-md">
+        <div class="glass-panel p-8 md:p-10 text-center fade-in">
+            <!-- App Header -->
+            <header class="mb-10">
+                <div class="relative inline-block mb-6">
+                    <div class="absolute inset-0 bg-blue-500 blur-2xl opacity-20 animate-pulse"></div>
+                    <div class="relative w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-400/30 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
                 </div>
-            </div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white mb-2 leading-tight">Albert Einstein Teaches</h1>
+                <h2 class="text-xl font-medium text-blue-400 mb-4 tracking-wide">The History of Math</h2>
+                <p class="text-blue-200/70 text-base italic leading-relaxed font-light">
+                    &ldquo;Imagination is more important than knowledge.&rdquo;
+                </p>
+            </header>
 
-            <h1 class="text-4xl font-bold mb-4 tracking-tight">Albert Einstein</h1>
-            <p class="text-blue-200/80 mb-8 text-lg font-light italic">
-                "Imagination is more important than knowledge."
-            </p>
-
-            <div class="space-y-6">
-                <!-- Main App Link -->
+            <!-- Actions -->
+            <div class="space-y-8">
                 <a href="https://einstein-s-universe-372856387530.us-west1.run.app" 
                    target="_blank"
-                   class="glow-button block w-full py-4 px-8 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-lg transition-all duration-200">
-                    Launch Application
+                   class="launch-btn block w-full py-4 px-6 text-white font-bold rounded-xl text-lg tracking-wide">
+                    Start Learning
                 </a>
 
                 <!-- Donation Section -->
-                <div class="pt-6 mt-6 border-t border-white/10">
-                    <h3 class="text-sm font-semibold text-blue-300 uppercase tracking-widest mb-3">Support the Project</h3>
-                    <p class="text-xs text-blue-200/60 mb-4 leading-relaxed px-4">
-                        If you find this learning experience valuable, please consider a donation to help keep the universe expanding.
+                <section class="inner-glass p-6">
+                    <h2 class="text-xs font-bold text-blue-400 uppercase tracking-[0.2em] mb-3">Support the Teacher</h2>
+                    <p class="text-xs text-slate-300 mb-5 leading-relaxed">
+                        Enjoying this lesson on mathematical history? Help us keep the curriculum growing with a small donation.
                     </p>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-white p-2 rounded-xl shadow-inner mb-3">
+                    
+                    <div class="relative group inline-block">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative bg-white p-2 rounded-lg">
                             <img src="venmo.jpg" 
-                                 alt="Venmo Donation" 
-                                 onerror="this.src='https://placehold.co/150x150/16213e/ffffff?text=Venmo+QR'" 
-                                 class="w-32 h-32 object-cover rounded-lg">
+                                 alt="Venmo Donation QR" 
+                                 onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://venmo.com/'" 
+                                 class="w-32 h-32 rounded">
                         </div>
-                        <span class="text-[10px] text-white/40 italic">Scan to donate via Venmo</span>
                     </div>
-                </div>
+                    <p class="text-[10px] text-slate-500 mt-4 italic">Scan to donate via Venmo</p>
+                </section>
 
                 <!-- Navigation -->
-                <div class="pt-4">
+                <nav class="pt-2">
                     <a href="https://jsmith66usa1.github.io/Lexp/" 
-                       class="text-sm text-blue-300 hover:text-white transition-colors duration-200 flex items-center justify-center gap-2 group">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                       class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-blue-300 transition-all group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
-                        Back to The Learning Experience
+                        <span>Back to The Learning Experience</span>
                     </a>
-                </div>
-                
-                <p class="text-[10px] text-white/30 pt-4 uppercase tracking-widest">
-                    Einstein's Universe Project
-                </p>
+                </nav>
             </div>
+
+            <!-- Footer -->
+            <footer class="mt-10 border-t border-white/5 pt-6">
+                <p class="text-[10px] text-slate-600 uppercase tracking-[0.3em]">
+                    Einstein's Math History Project
+                </p>
+            </footer>
         </div>
     </main>
 
     <script>
-        function createStars() {
-            const starField = document.getElementById('starField');
-            const count = 100;
-            for (let i = 0; i < count; i++) {
+        function initStars() {
+            const container = document.getElementById('star-container');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.style.position = 'absolute';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.background = 'white';
-                star.style.borderRadius = '50%';
-                star.style.opacity = Math.random();
-                star.style.boxShadow = '0 0 5px white';
-                starField.appendChild(star);
+                star.className = 'star';
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 2 + 1;
+                const duration = (Math.random() * 3 + 2) + 's';
+                const delay = (Math.random() * 5) + 's';
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--duration', duration);
+                star.style.animationDelay = delay;
+                
+                container.appendChild(star);
             }
         }
 
-        window.onload = createStars;
+        window.onload = initStars;
     </script>
 </body>
 </html>
