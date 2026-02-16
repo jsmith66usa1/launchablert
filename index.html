@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert Einstein - Explore the Universe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow-x: hidden;
+            padding: 2rem 0;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent;
+            z-index: 0;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glow-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="starField"></div>
+
+    <main class="relative z-10 w-full max-w-lg px-6">
+        <div class="glass-card p-8 md:p-12 text-center fade-in">
+            <div class="mb-8 flex justify-center">
+                <div class="w-24 h-24 rounded-full bg-blue-600/20 flex items-center justify-center border border-blue-400/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="text-4xl font-bold mb-4 tracking-tight">Albert Einstein</h1>
+            <p class="text-blue-200/80 mb-8 text-lg font-light italic">
+                "Imagination is more important than knowledge."
+            </p>
+
+            <div class="space-y-6">
+                <!-- Main App Link -->
+                <a href="https://einstein-s-universe-372856387530.us-west1.run.app" 
+                   target="_blank"
+                   class="glow-button block w-full py-4 px-8 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-lg transition-all duration-200">
+                    Launch Application
+                </a>
+
+                <!-- Donation Section -->
+                <div class="pt-6 mt-6 border-t border-white/10">
+                    <h3 class="text-sm font-semibold text-blue-300 uppercase tracking-widest mb-3">Support the Project</h3>
+                    <p class="text-xs text-blue-200/60 mb-4 leading-relaxed px-4">
+                        If you find this learning experience valuable, please consider a donation to help keep the universe expanding.
+                    </p>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-white p-2 rounded-xl shadow-inner mb-3">
+                            <img src="venmo.jpg" 
+                                 alt="Venmo Donation" 
+                                 onerror="this.src='https://placehold.co/150x150/16213e/ffffff?text=Venmo+QR'" 
+                                 class="w-32 h-32 object-cover rounded-lg">
+                        </div>
+                        <span class="text-[10px] text-white/40 italic">Scan to donate via Venmo</span>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="pt-4">
+                    <a href="https://jsmith66usa1.github.io/Lexp/" 
+                       class="text-sm text-blue-300 hover:text-white transition-colors duration-200 flex items-center justify-center gap-2 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to The Learning Experience
+                    </a>
+                </div>
+                
+                <p class="text-[10px] text-white/30 pt-4 uppercase tracking-widest">
+                    Einstein's Universe Project
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function createStars() {
+            const starField = document.getElementById('starField');
+            const count = 100;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.background = 'white';
+                star.style.borderRadius = '50%';
+                star.style.opacity = Math.random();
+                star.style.boxShadow = '0 0 5px white';
+                starField.appendChild(star);
+            }
+        }
+
+        window.onload = createStars;
+    </script>
+</body>
+</html>
